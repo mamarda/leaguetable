@@ -23,6 +23,9 @@ handlers:
 - url: /favicon.ico
   static_files: files/images/favicon.ico
   upload: files/images/favicon.ico
+  
+- url: /import
+  script: importer.py
 
 - url: .*
   script: start.py
