@@ -1,0 +1,28 @@
+application: tabled
+version: 1
+runtime: python
+api_version: 1
+
+handlers:
+
+- url: /sample.xls
+  static_files: files/samples/sample.xls
+  upload: files/samples/sample.xls
+
+- url: /style.css
+  static_files: files/style/builder.css
+  upload: files/style/builder.css
+
+- url: /league.jpg
+  static_files: files/images/league.jpg
+  upload: files/images/league.jpg
+
+- url: /files
+  static_dir: file
+
+- url: /favicon.ico
+  static_files: files/images/favicon.ico
+  upload: files/images/favicon.ico
+
+- url: .*
+  script: start.py
