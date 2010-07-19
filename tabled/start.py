@@ -29,6 +29,8 @@ class Standing(db.Model):
     awayDraws = db.IntegerProperty()
     awayLosses = db.IntegerProperty()
     points = db.IntegerProperty()
+    goalsFor = db.IntegerProperty()
+    goalsAgainst = db.IntegerProperty()
     
     def initialize(self):
         self.homeGameCount = 0
@@ -40,6 +42,8 @@ class Standing(db.Model):
         self.awayDraws = 0
         self.awayLosses = 0
         self.points = 0
+    	self.goalsFor = 0
+    	self.goalsAgainst = 0
 
 class Fetcher(webapp.RequestHandler):
 
@@ -151,10 +155,7 @@ class Fetcher(webapp.RequestHandler):
  
       for fixture in fixtures:
           
-          teamnumber = 0
-          
           for team in teams:
-                teamnumber = teamnumber +1
                 if( team.teamName == fixture.homeTeam ):
                     newteam = False
                     break;
@@ -166,9 +167,8 @@ class Fetcher(webapp.RequestHandler):
           else:
               newstanding = team
               teams.remove(team)
-              
 
-          if( fixture.homeScore != "void" ):
+          if( fixture.homeScore != "cancelled" ):
                                           
               if( int(fixture.homeScore) > int(fixture.awayScore) ):
                   newstanding.homeWins = newstanding.homeWins +1
@@ -178,17 +178,42 @@ class Fetcher(webapp.RequestHandler):
                   newstanding.points = newstanding.points + 1
               else:
                   newstanding.homeLosses = newstanding.homeLosses +1
-                  
-                  
+
+              newstanding.goalsFor = newstanding.goalsFor + int(fixture.homeScore)
+              newstanding.goalsAgainst = newstanding.goalsAgainst + int(fixture.awayScore)
+          
+	  teams.append( newstanding )
+      
+      for fixture in fixtures:
+
+	  for team in teams:
+          	if( team.teamName == fixture.awayTeam ):
+              	    newstanding = team
+                    teams.remove(team)
+                    break;
+
+          if( fixture.awayScore != "cancelled" ):
+                                          
+              if( int(fixture.homeScore) > int(fixture.awayScore) ):
+		      newstanding.awayLosses = newstanding.awayLosses +1
+              elif( int(fixture.homeScore) == int(fixture.awayScore) ):
+                  newstanding.awayDraws = newstanding.awayDraws +1
+                  newstanding.points = newstanding.points + 1
+              else:
+                  newstanding.awayWins = newstanding.awayWins +1
+                  newstanding.points = newstanding.points + 3
+
+              newstanding.goalsFor = newstanding.goalsFor + int(fixture.awayScore)
+              newstanding.goalsAgainst = newstanding.goalsAgainst + int(fixture.homeScore)
               
           teams.append( newstanding )
               
       for team in teams:
+
+	      goalDifference = team.goalsFor - team.goalsAgainst
           
-          self.response.out.write('<div>Team: %s Points: %s</div>' % ( team.teamName, team.points ) )
+	      self.response.out.write('<div>Team: %s Points: %s Goal Difference: %s </div>' % ( team.teamName, team.points, goalDifference ) )
         
-            
-      
       #self.response.out.write( '<div id="myContent"><p>Alternative content</p></div></body></html>')
 
       if users.get_current_user():
