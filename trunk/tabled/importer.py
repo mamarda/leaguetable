@@ -27,7 +27,7 @@ class Fixture(db.Model):
     homeScore = db.StringProperty()
     awayScore = db.StringProperty()
     
-class Import(  webapp.RequestHandler):  
+class Import(webapp.RequestHandler):  
     
   def storeFixtures(self, sheet, feed ):
     
@@ -45,8 +45,8 @@ class Import(  webapp.RequestHandler):
             f.homeScore = scores[0]
             f.awayScore = scores[1]
         else:
-            f.homeScore = ""
-            f.awayScore = ""
+            f.homeScore = "void"
+            f.awayScore = "void"
         
 
         f.put()
