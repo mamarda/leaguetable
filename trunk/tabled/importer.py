@@ -45,8 +45,8 @@ class Import(webapp.RequestHandler):
             f.homeScore = scores[0]
             f.awayScore = scores[1]
         else:
-            f.homeScore = "cancelled"
-            f.awayScore = "cancelled"
+            f.homeScore = "empty"
+            f.awayScore = "empty"
         
 
         f.put()

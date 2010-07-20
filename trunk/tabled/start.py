@@ -50,7 +50,7 @@ class Fetcher(webapp.RequestHandler):
   def get(self):
     
     self.response.headers['Content-Type'] = 'text/html'
-    self.response.out.write(""" <html>\n  <head>\n   <title>Tabled in the cloud ...  </title>\n   <link rel=\"stylesheet\" type=\"text/css\" href="style.css"/>\n     </head>\n<body>""")
+    self.response.out.write(""" <html>\n  <head>\n   <title>Tabled in the cloud ...  </title>\n   <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\"/>\n  <link type=\"text/css\" href=\"jqstyle.css\" rel=\"stylesheet\" /> \n <script type=\"text/javascript\" src=\"jq.js\"></script> \n <script type=\"text/javascript\" src=\"js/jqui.js\"></script>   </head>\n<body>""")
        
     self.response.out.write("""<div class ="bar" id="nav"><div class="gbar"><b>Tabled</b></div>""")
     if users.get_current_user():
@@ -168,7 +168,7 @@ class Fetcher(webapp.RequestHandler):
               newstanding = team
               teams.remove(team)
 
-          if( fixture.homeScore != "cancelled" ):
+          if( fixture.homeScore != "empty" ):
                                           
               if( int(fixture.homeScore) > int(fixture.awayScore) ):
                   newstanding.homeWins = newstanding.homeWins +1
@@ -192,7 +192,7 @@ class Fetcher(webapp.RequestHandler):
                     teams.remove(team)
                     break;
 
-          if( fixture.awayScore != "cancelled" ):
+          if( fixture.awayScore != "empty" ):
                                           
               if( int(fixture.homeScore) > int(fixture.awayScore) ):
 		      newstanding.awayLosses = newstanding.awayLosses +1
