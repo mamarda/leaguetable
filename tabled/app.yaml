@@ -13,6 +13,18 @@ handlers:
   static_files: files/style/builder.css
   upload: files/style/builder.css
 
+- url: /jqstyle.css
+  static_files: files/style/smoothness/jquery-ui-1.8.2.custom.css
+  upload: files/style/smoothness/jquery-ui-1.8.2.custom.css
+  
+- url: /jq.js
+  static_files: files/js/jquery-1.4.2.min.js
+  upload: files/js/jquery-1.4.2.min.js
+  
+- url: /jqui.js
+  static_files: files/js/jquery-ui-1.8.2.custom.js
+  upload: files/js/jquery-ui-1.8.2.custom.js
+
 - url: /league.jpg
   static_files: files/images/league.jpg
   upload: files/images/league.jpg
