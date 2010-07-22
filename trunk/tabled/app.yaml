@@ -30,7 +30,10 @@ handlers:
   upload: files/images/league.jpg
 
 - url: /files
-  static_dir: file
+  static_dir: files
+
+- url: /example
+  static_dir: example
 
 - url: /favicon.ico
   static_files: files/images/favicon.ico

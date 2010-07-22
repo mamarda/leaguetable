@@ -17,6 +17,8 @@ import settings
 import twitter
 import profiler
 import importer
+import os
+from google.appengine.ext.webapp import template
 
 class Standing(db.Model):
     teamName = db.StringProperty()
@@ -50,7 +52,7 @@ class Fetcher(webapp.RequestHandler):
   def get(self):
     
     self.response.headers['Content-Type'] = 'text/html'
-    self.response.out.write(""" <html>\n  <head>\n   <title>Tabled in the cloud ...  </title>\n   <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\"/>\n  <link type=\"text/css\" href=\"jqstyle.css\" rel=\"stylesheet\" /> \n <script type=\"text/javascript\" src=\"jq.js\"></script> \n <script type=\"text/javascript\" src=\"js/jqui.js\"></script>   </head>\n<body>""")
+    self.response.out.write(""" <html>\n  <head>\n   <title>Tabled in the cloud ...  </title>\n   <link rel=\"stylesheet\" type=\"text/css\" href="style.css"/>\n     </head>\n<body class="tundra">""")
        
     self.response.out.write("""<div class ="bar" id="nav"><div class="gbar"><b>Tabled</b></div>""")
     if users.get_current_user():
@@ -168,7 +170,7 @@ class Fetcher(webapp.RequestHandler):
               newstanding = team
               teams.remove(team)
 
-          if( fixture.homeScore != "empty" ):
+          if( fixture.homeScore != "cancelled" ):
                                           
               if( int(fixture.homeScore) > int(fixture.awayScore) ):
                   newstanding.homeWins = newstanding.homeWins +1
@@ -192,7 +194,7 @@ class Fetcher(webapp.RequestHandler):
                     teams.remove(team)
                     break;
 
-          if( fixture.awayScore != "empty" ):
+          if( fixture.awayScore != "cancelled" ):
                                           
               if( int(fixture.homeScore) > int(fixture.awayScore) ):
 		      newstanding.awayLosses = newstanding.awayLosses +1
@@ -212,7 +214,14 @@ class Fetcher(webapp.RequestHandler):
 
 	      goalDifference = team.goalsFor - team.goalsAgainst
           
-	      self.response.out.write('<div>Team: %s Points: %s Goal Difference: %s </div>' % ( team.teamName, team.points, goalDifference ) )
+	      #self.response.out.write('<div>Team: %s Points: %s Goal Difference: %s </div>' % ( team.teamName, team.points, goalDifference ) )
+
+      template_values = {
+            'greetings': 'hi there',
+      }
+
+      path = os.path.join(os.path.dirname(__file__), 'index.html')
+      self.response.out.write(template.render(path, template_values))
         
       #self.response.out.write( '<div id="myContent"><p>Alternative content</p></div></body></html>')
 
