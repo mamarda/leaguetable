@@ -13,17 +13,11 @@ handlers:
   static_files: files/style/builder.css
   upload: files/style/builder.css
 
-- url: /jqstyle.css
-  static_files: files/style/smoothness/jquery-ui-1.8.2.custom.css
-  upload: files/style/smoothness/jquery-ui-1.8.2.custom.css
+- url: /results
+  script: results.py
   
-- url: /jq.js
-  static_files: files/js/jquery-1.4.2.min.js
-  upload: files/js/jquery-1.4.2.min.js
-  
-- url: /jqui.js
-  static_files: files/js/jquery-ui-1.8.2.custom.js
-  upload: files/js/jquery-ui-1.8.2.custom.js
+- url: /standings
+  script: standings.py
 
 - url: /league.jpg
   static_files: files/images/league.jpg
@@ -33,7 +27,7 @@ handlers:
   static_dir: files
 
 - url: /example
-  static_dir: example
+  static_dir: files/example
 
 - url: /favicon.ico
   static_files: files/images/favicon.ico

@@ -1,0 +1,3 @@
+{ identifier: 'fieldname', 
+  label: 'fieldname',
+  items:[ { fieldname:'Holy Trinity', address:'180 Katimavik Road Kanata ON K2L 4A7', lat:'45.3075616', long:'-75.9007591'},{ fieldname:'Bridlewood North Mini', address:'Bridlewood Drive Kanata Ontario', lat:'45.2936880', long:'-75.8653990'},{ fieldname:'Bridlewood South Mini', address:'Bridlewood Drive Kanata Ontario', lat:'45.2936880', long:'-75.8653990'},{ fieldname:'Bluegrass Park', address:'159 BLUEGRASS DR Kanata', lat:'45.2843336', long:'-75.8610374'},{ fieldname:'Pumphouse Park', address:'170 Castlefrank Road Kanata Ontario', lat:'45.2901132', long:'-75.8799596'},{ fieldname:'Jack Charron Arena', address:'10 MCKITRICK DR Kanata', lat:'45.2939321', long:'-75.8845096'}]}
