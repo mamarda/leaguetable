@@ -13,8 +13,8 @@ import gdata.spreadsheet.service
 
 class Fixture(db.Model):
     round = db.IntegerProperty()
-    date = db.DateProperty()
+    date = db.StringProperty()
     homeTeam = db.StringProperty()
     awayTeam = db.StringProperty()
-    homeScore = db.IntegerProperty()
-    awayScore = db.IntegerProperty()
+    homeScore = db.StringProperty()
+    awayScore = db.StringProperty()

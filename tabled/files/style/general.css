@@ -1,15 +1,15 @@
 body {
 	#padding:2em !important;
-	background:url("bodyBg.gif") repeat-x top left #fff;
+	#background:url("bodyBg.gif") repeat-x top left #fff;
 }
 
 .partsContainer {
-	background:#2e2e2e;	
-	# padding:1em;
-	width:500px;
+	background:#E8EEFA;;	
+	#padding:5px;
+	width:360px;
 	#float: left;
 	position: absolute;
-	top:50px;
+	top:60px;
 	left:30px;
 	# -webkit-box-shadow: 2px 8px 11px #888;
 }
@@ -24,10 +24,6 @@ body {
 .tundra .dojoxgrid {
      font-size: 12px;
 }
-
-/*.partsContainer .gridContainer table {
-	width:475px;
-}*/
 
 h1 {
 	font-family:"Century Gothic", Verdana,Arial,Helvetica,sans-serif;
@@ -58,22 +54,38 @@ h1 {
 	background:#e8f2ff;
 }
 
-.mapshell{
-   margin: 5px;
-   background: blue;
-   position: absolute;
-   left:520px;
-   top:30px;
-
-   width: 330px;
-   height: 330px;
-   -moz-border-radius:8px;
+.resultsTitle{
+	color: #1240AB;
+	font-weight: bold;
+	position: absolute;
+    top: 40px;
+    left:30px;
 }
 
-.map{
-   width: 300px; 
-   height: 300px; 
-   position: absolute;
-   top: 50px;
-   left:570px;
+.standingsTitle{
+	color: #1240AB;
+	font-weight: bold;
+	position: absolute;
+    top: 40px;
+    left:420px;
+}
+
+.standingsContainer {
+	background:#E8EEFA;	
+	#padding:5px;
+	width:320px;
+	#float: left;
+	position: absolute;
+    top: 60px;
+    left:420px;
+    #border: 1px solid silver;
+    #border-left:1px solid #000;	
+	# -webkit-box-shadow: 2px 8px 11px #888;
+}
+
+.standingsContainer .gridContainer {
+	background:#fff;
+	height:200px;
+	#border-top:1px solid #000;
+	#border-left:1px solid #000;	
 }

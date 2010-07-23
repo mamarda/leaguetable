@@ -52,13 +52,14 @@ class Fetcher(webapp.RequestHandler):
   def get(self):
     
     self.response.headers['Content-Type'] = 'text/html'
-    self.response.out.write(""" <html>\n  <head>\n   <title>Tabled in the cloud ...  </title>\n   <link rel=\"stylesheet\" type=\"text/css\" href="style.css"/>\n     </head>\n<body class="tundra">""")
+
+    self.response.out.write(""" <html>\n  <head>\n   <title>Tabled in the cloud ...  </title>\n   <link rel=\"stylesheet\" type=\"text/css\" href="style.css"/>\n     </head>\n<body class="claro">""")
        
     self.response.out.write("""<div class ="bar" id="nav"><div class="gbar"><b>Tabled</b></div>""")
     if users.get_current_user():
       myUser = users.get_current_user();
       self.response.out.write( '<div class="user"><b>%s</b>' % ( myUser.email() ) ) 
-      self.response.out.write( ' | <a href="http://docs.google.com/Doc?id=dc2s44r4_225hg83jhhk">Guide</a>|<a href="%s">Sign out</a></div>' % (
+      self.response.out.write( ' | <a href="%s"> Sign out</a></div>' % (
           users.create_logout_url('http://%s/' % settings.HOST_NAME)))
     else:
       self.response.out.write('<div class="user"><a href="http://docs.google.com/Doc?id=dc2s44r4_225hg83jhhk">Guide</a>| <a href="%s">Sign in</a></div>' % (
@@ -146,79 +147,8 @@ class Fetcher(webapp.RequestHandler):
           newprofile.put()
           
           twitter.log( "Created a new account for %s" % users.get_current_user().email() )
-          
-      fixtures = db.GqlQuery("SELECT * FROM Fixture")
-      
-      teams = []
 
-      newteam = True
-      hometeam = False
-      awayteam = False
- 
-      for fixture in fixtures:
-          
-          for team in teams:
-                if( team.teamName == fixture.homeTeam ):
-                    newteam = False
-                    break;
-                
-          if( newteam == True ):          
-              newstanding = Standing()
-              newstanding.teamName = fixture.homeTeam
-              newstanding.initialize()
-          else:
-              newstanding = team
-              teams.remove(team)
-
-          if( fixture.homeScore != "cancelled" ):
-                                          
-              if( int(fixture.homeScore) > int(fixture.awayScore) ):
-                  newstanding.homeWins = newstanding.homeWins +1
-                  newstanding.points = newstanding.points + 3
-              elif( int(fixture.homeScore) == int(fixture.awayScore) ):
-                  newstanding.homeDraws = newstanding.homeDraws +1
-                  newstanding.points = newstanding.points + 1
-              else:
-                  newstanding.homeLosses = newstanding.homeLosses +1
-
-              newstanding.goalsFor = newstanding.goalsFor + int(fixture.homeScore)
-              newstanding.goalsAgainst = newstanding.goalsAgainst + int(fixture.awayScore)
-          
-	  teams.append( newstanding )
-      
-      for fixture in fixtures:
-
-	  for team in teams:
-          	if( team.teamName == fixture.awayTeam ):
-              	    newstanding = team
-                    teams.remove(team)
-                    break;
-
-          if( fixture.awayScore != "cancelled" ):
-                                          
-              if( int(fixture.homeScore) > int(fixture.awayScore) ):
-		      newstanding.awayLosses = newstanding.awayLosses +1
-              elif( int(fixture.homeScore) == int(fixture.awayScore) ):
-                  newstanding.awayDraws = newstanding.awayDraws +1
-                  newstanding.points = newstanding.points + 1
-              else:
-                  newstanding.awayWins = newstanding.awayWins +1
-                  newstanding.points = newstanding.points + 3
-
-              newstanding.goalsFor = newstanding.goalsFor + int(fixture.awayScore)
-              newstanding.goalsAgainst = newstanding.goalsAgainst + int(fixture.homeScore)
-              
-          teams.append( newstanding )
-              
-      for team in teams:
-
-	      goalDifference = team.goalsFor - team.goalsAgainst
-          
-	      #self.response.out.write('<div>Team: %s Points: %s Goal Difference: %s </div>' % ( team.teamName, team.points, goalDifference ) )
-
-      template_values = {
-            'greetings': 'hi there',
-      }
+      template_values ={}
 
       path = os.path.join(os.path.dirname(__file__), 'index.html')
       self.response.out.write(template.render(path, template_values))
