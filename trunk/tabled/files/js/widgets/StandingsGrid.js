@@ -1,10 +1,12 @@
 ( function() {
 
-dojo.provide("ajax.example.StandingsGrid");
+dojo.provide("leaguedata.widgets.StandingsGrid");
 
-dojo.require("dijit.form.Button");
+dojo.require("dijit.dijit");
+dojo.require("dojo.data.ItemFileReadStore")
+dojo.require("dojox.grid.DataGrid");
 
-dojo.declare( "ajax.example.StandingsGrid", [dijit._Widget], {
+dojo.declare( "leaguedata.widgets.StandingsGrid", [dijit._Widget], {
 
    parentnode: null,
 
@@ -17,6 +19,11 @@ dojo.declare( "ajax.example.StandingsGrid", [dijit._Widget], {
    constructor: function( p, gridnode ){
 
       this.parentnode = gridnode;
+   },
+   
+   reload: function(){
+   		var newStore = new dojo.data.ItemFileReadStore({ url: "standings" } );
+		this.grid.setStore(newStore);
    },
 
    postCreate: function(){
@@ -38,20 +45,20 @@ dojo.declare( "ajax.example.StandingsGrid", [dijit._Widget], {
      var jsonStore = new dojo.data.ItemFileReadStore( { url: "standings" } );
 
      var layout= [ 	{ field: "team", width: "auto", name: "Team" },
+    				{ field: "played", width: "30px", styles: 'text-align: center;', name: "P" },
      				{ field: "wins", width: "30px", styles: 'text-align: center;', name: "W" },
      				{ field: "draws", width: "30px", styles: 'text-align: center;', name: "D" },
     				{ field: "losses", width: "30px", styles: 'text-align: center;', name: "L" },
 		   			{ field: "goalsfor", width: "30px", styles: 'text-align: center;', name: "GF" },
 		   			{ field: "goalsagainst", width: "30px", styles: 'text-align: center;', name: "GA" },
-		   			{ field: "difference", width: "30px", styles: 'text-align: center;', name: "D" },
-		   			{ field: "points", width: "40px", styles: 'text-align: center;', name: "P" } ];
+		   			{ field: "difference", width: "30px", styles: 'text-align: center;', name: "GD" },
+		   			{ field: "points", width: "50px", styles: 'text-align: center;', name: "Pts" } ];
  
      this.grid = new dojox.grid.DataGrid( { query: { standing: '*' },
 				       store: jsonStore,
 				       structure: layout,
 				       rowsPerPage: 20,
-				       onRowClick: display,
-				       sortInfo: -8,
+				       sortInfo: -9,
 				       sortOrder: 'ascending'
 				       }, 'standingsNode' );
 

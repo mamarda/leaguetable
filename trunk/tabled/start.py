@@ -53,16 +53,16 @@ class Fetcher(webapp.RequestHandler):
     
     self.response.headers['Content-Type'] = 'text/html'
 
-    self.response.out.write(""" <html>\n  <head>\n   <title>Tabled in the cloud ...  </title>\n   <link rel=\"stylesheet\" type=\"text/css\" href="style.css"/>\n     </head>\n<body class="claro">""")
+    self.response.out.write(""" <html>\n  <head>\n   <title>League Table</title>\n   <link rel=\"stylesheet\" type=\"text/css\" href="style.css"/>\n     </head>\n<body class="claro">""")
        
-    self.response.out.write("""<div class ="bar" id="nav"><div class="gbar"><b>Tabled</b></div>""")
+    self.response.out.write("""<div class ="bar" id="nav"><div class="gbar"><b>League Table</b></div>""")
     if users.get_current_user():
       myUser = users.get_current_user();
       self.response.out.write( '<div class="user"><b>%s</b>' % ( myUser.email() ) ) 
       self.response.out.write( ' | <a href="%s"> Sign out</a></div>' % (
           users.create_logout_url('http://%s/' % settings.HOST_NAME)))
     else:
-      self.response.out.write('<div class="user"><a href="http://docs.google.com/Doc?id=dc2s44r4_225hg83jhhk">Guide</a>| <a href="%s">Sign in</a></div>' % (
+      self.response.out.write('<div class="user"><a href="%s">Sign in</a></div>' % (
           users.create_login_url('http://%s/' % settings.HOST_NAME)))
     self.response.out.write('</div>')
 
@@ -119,18 +119,13 @@ class Fetcher(webapp.RequestHandler):
           
           for v in variable:
               logging.debug( 'TOKEN: %s' % v )
-          
           if variable[2] == "spreadsheets.google.com":
               spreadsheets = True;
-          elif variable[5] == "contacts":
-              contacts = True;
       
       self.response.out.write( '<script language=\"javascript\" type=\"text/javascript\">' )
       if spreadsheets == False:
         self.response.out.write('document.location.href = \"%s"'%( self.GenerateScopeRequestLink(client, 'http://spreadsheets.google.com/feeds/' ) ) )
-      elif contacts == False:
-        self.response.out.write('document.location.href = \"%s"'%( self.GenerateScopeRequestLink(client, 'http://www.google.com/m8/feeds/contacts/default/base' ) ) )  
-        
+     
       self.response.out.write('</script>')
       
       newaccount = True;
@@ -146,7 +141,7 @@ class Fetcher(webapp.RequestHandler):
           newprofile.account = users.get_current_user().email()        
           newprofile.put()
           
-          twitter.log( "Created a new account for %s" % users.get_current_user().email() )
+          # twitter.log( "Created a new account for %s" % users.get_current_user().nickname() )
 
       template_values ={}
 
@@ -155,8 +150,8 @@ class Fetcher(webapp.RequestHandler):
         
       #self.response.out.write( '<div id="myContent"><p>Alternative content</p></div></body></html>')
 
-      if users.get_current_user():
-        twitter.log( "%s logged into Tabled." % users.get_current_user().email() )
+      #if users.get_current_user():
+       # twitter.log( "%s logged into leaguetable." % users.get_current_user().nickname() )
 
     else:
       self.response.out.write("""<div id="wrap"> """ )
@@ -173,11 +168,12 @@ class Fetcher(webapp.RequestHandler):
 
   def writeContent(self):
     self.response.out.write("""<div style="text-align: center; "><div style="margin-bottom: 0px; margin-left: auto; margin-right: auto; margin-top: 0px; overflow: hidden; position: relative; word-wrap: break-word;  background: rgb(255, 255, 255); text-align: left; width: 700px; " id="body_content"><div style="margin-left: 0px; position: relative; width: 700px; z-index: 5; " id="body_layer"><div style="height: 0px; line-height: 0px; "></div><div style="height: 304px; width: 405px;  height: 304px; left: -19px; position: absolute; top: 73px; width: 405px; z-index: 1; ">
-            <img src="league.jpg" alt="" style="border: none;" /></div><div id="id1" style="height: 327px; left: 379px; position: absolute; top: 70px; width: 286px; z-index: 1;"><div>
-                <p style="padding-bottom: 0pt; padding-top: 0pt;"><b>Welcome to Tabled</b></p>
-                <p>Tabled builds a league table from soccer results.</p>
-                <p><b>Note - this application is constantly evolving!</b><p>
-                <p><form action="%s" method="post"><input type="submit" value="Sign in" name="signIn"/></form></p></div></div><div style="height: 480px; line-height: 480px;"></div></div><div style="height: 150px; margin-left: 0px; position: relative; width: 700px; z-index: 15; " id="footer_layer"><div style="height: 0px; line-height: 0px; float: right; "><img src="files/images/gae.gif" alt="" style="border: none;" /></div></div></div></div>"""%users.create_login_url('http://%s/' % settings.HOST_NAME) ) 
+            <img src="/files/images/redball.jpg" alt="" style="border: none;" /></div><div id="id1" style="height: 327px; left: 200px; position: absolute; top: 70px; width: 286px; z-index: 1;"><div>
+                <p style="padding-bottom: 0pt; padding-top: 0pt;"><b>Welcome to League Table</b></p>
+                <p>This application makes a league table from soccer results.</p>
+                <p>It allows coaches to update a score and instantly
+                see the league standings update. </p>
+                <p><form action="%s" method="post"><input type="submit" value="Sign in" name="signIn"/></form></p></div></div><div style="height: 250px; line-height: 250px;"></div></div><div style="height: 150px; margin-left: 0px; position: relative; width: 400px; z-index: 15; " id="footer_layer"><div style="height: 0px; line-height: 0px; float: right; "><img src="files/images/gae.gif" alt="" style="border: none;" /></div></div></div></div>"""%users.create_login_url('http://%s/' % settings.HOST_NAME) ) 
 
   def GenerateFeedRequestLink(self, feed_url):
     return atom.url.Url('http', settings.HOST_NAME, path='/', 

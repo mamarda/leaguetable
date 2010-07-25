@@ -47,7 +47,9 @@ class Results(webapp.RequestHandler):
   def get(self):
       
       fixtures = db.GqlQuery("SELECT * FROM Fixture")
+            
       
+
       teams = []
 
       newteam = True
@@ -60,7 +62,7 @@ class Results(webapp.RequestHandler):
               if( team.teamName == fixture.homeTeam ):
                   newteam = False
                   break;
-                
+                                
           if( newteam == True ):          
               newstanding = Standing()
               newstanding.teamName = fixture.homeTeam
@@ -68,6 +70,7 @@ class Results(webapp.RequestHandler):
           else:
               newstanding = team
               teams.remove(team)
+              newteam = True
 
           if( fixture.homeScore != "empty" ):
                                           
@@ -126,13 +129,15 @@ class Results(webapp.RequestHandler):
           draws = team.homeDraws + team.awayDraws
           
           losses = team.homeLosses + team.awayLosses
+          
+          played = wins + draws + losses
 
           count = count +1
           
           if count != 1:
               self.response.out.write(',')
               
-          self.response.out.write('{ standing: \"%s\", team:\"%s\", points:%s, goalsfor:%s, goalsagainst:%s, difference:%s, wins:%s, draws:%s, losses:%s }' % ( count, team.teamName, team.points, team.goalsFor, team.goalsAgainst, goalDifference, wins, draws, losses  ) )
+          self.response.out.write('{ standing: \"%s\", team:\"%s\", points:%s, goalsfor:%s, goalsagainst:%s, difference:%s, wins:%s, draws:%s, losses:%s, played:%s}' % ( count, team.teamName, team.points, team.goalsFor, team.goalsAgainst, goalDifference, wins, draws, losses, played  ) )
       
       self.response.out.write(']}')
     

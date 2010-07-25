@@ -20,7 +20,7 @@ from time import sleep
 from google.appengine.api import urlfetch
 
 class Fixture(db.Model):
-    round = db.IntegerProperty()
+    identifier = db.IntegerProperty()
     date = db.StringProperty()
     homeTeam = db.StringProperty()
     awayTeam = db.StringProperty()
@@ -28,6 +28,38 @@ class Fixture(db.Model):
     awayScore = db.StringProperty()
     
 class Results(webapp.RequestHandler):  
+    
+  def post(self):
+    
+    identifier = self.request.body.split( 'id:' )[1]
+    
+    identifier = int(identifier.split(',')[0])
+    
+    homescore = self.request.body.split( 'homescore:' )[1]
+    
+    homescore = homescore.split(',')[0]
+    
+    awayscore = self.request.body.split( 'awayscore:' )[1]
+    
+    awayscore = awayscore.split('}')[0]
+    
+    logging.info( 'HIT %s' % identifier )
+    
+    fixtures = db.GqlQuery("SELECT * FROM Fixture")
+       
+    for fixture in fixtures:
+        if fixture.identifier == identifier:
+            logging.info( 'MATCH %s', identifier )
+            fixture.homeScore = homescore
+            fixture.awayScore = awayscore
+            fixture.put()
+            
+            twitter.log( "%s added a result for fixture %s: %s %s - %s %s." % ( users.get_current_user().nickname(), fixture.identifier, fixture.homeTeam, fixture.homeScore, fixture.awayTeam, fixture.awayScore  ) )
+            
+            logging.debug( "%s added a result for fixture %s: %s %s - %s %s." % ( users.get_current_user().nickname(), fixture.identifier, fixture.homeTeam, fixture.homeScore, fixture.awayTeam, fixture.awayScore  )  )
+            
+            break;
+    
     
   def get(self):
       
@@ -66,7 +98,7 @@ class Results(webapp.RequestHandler):
        if count != 1:
            self.response.out.write(',')
             
-       self.response.out.write('{ fixture:\"%s\", week:\"%s\", date:\"%s\", hometeam:\"%s\", awayteam:\"%s\", homescore:\"%s\", awayscore:\"%s\" }' % ( count, week, fixture.date, hometeam, awayteam, homescore, awayscore ) )
+       self.response.out.write('{ fixture:%s, week:\"%s\", date:\"%s\", hometeam:\"%s\", awayteam:\"%s\", homescore:"%s", awayscore:"%s" }' % ( fixture.identifier, week, fixture.date, hometeam, awayteam, homescore, awayscore ) )
       
     self.response.out.write(']}')
     
