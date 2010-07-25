@@ -8,7 +8,7 @@ from google.appengine.ext import webapp
 from google.appengine.api import urlfetch
     
 def log( message ):
-   login = "squadbuilder"
+   login = "leaguedata"
    password = "zaphod42"
    chime = message
    payload= {'status' : chime, 'source' : "TeamBuilder"}

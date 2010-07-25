@@ -1,0 +1,78 @@
+<html>
+ <head>
+   <title>League Table</title>
+   <link rel="stylesheet" type="text/css" href="style.css"/>
+   <script language="javascript" type="text/javascript"></script>
+   
+   <style type="text/css">
+
+     @import "http://ajax.googleapis.com/ajax/libs/dojo/1.5/dijit/themes/claro/claro.css";
+     @import "http://ajax.googleapis.com/ajax/libs/dojo/1.5/dojox/grid/resources/Grid.css";
+     @import "http://ajax.googleapis.com/ajax/libs/dojo/1.5/dojox/grid/resources/claroGrid.css";
+     @import "./files/style/general.css";
+  
+     .dojoxGrid table { margin: 0; } html, body { width: 100%; height: 100%; margin: 0; }
+   
+   </style>
+ </head>
+ <body class="claro">
+   <div class ="bar" id="nav">
+     <div class="gbar"><b>Kanata Soccer: U9 Boys South</b></div>
+     <div class="user"></div>
+   </div>
+   <div id = "resultstitle" class="resultsTitle">Results</div>
+   <div id = "standingstitle" class="standingsTitle">Standings</div>
+   <div id = "results" class="resultsContainer"></div> 
+   <div id = "standings" class="standingsContainer"></div> 
+
+
+ </body>
+   <script>
+     djConfig={ baseUrl: '/', modulePaths: {'leaguedata.widgets': 'files/js/widgets'} }
+   </script>
+   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/dojo/1.5/dojo/dojo.xd.js" djConfig="parseOnLoad:true, isDebug: false"></script>
+   <script>
+     dojo.require("leaguedata.widgets.ResultsGrid");
+     dojo.require("leaguedata.widgets.StandingsGrid");
+  
+     function start(){
+       var results = dojo.byId( "results" ); 
+       var standings = dojo.byId( "standings" ); 
+       var sg = new leaguedata.widgets.StandingsGrid( {}, standings );   
+       var fg = new leaguedata.widgets.ResultsGrid( {}, results, sg, false );
+     }
+
+     dojo.addOnLoad( start );
+   </script>
+    <script src="http://widgets.twimg.com/j/2/widget.js"></script>
+ <script>
+new TWTR.Widget({
+  version: 2,
+  type: 'profile',
+  rpp: 4,
+  interval: 6000,
+  width: 390,
+  height: 100,
+  theme: {
+    shell: {
+      background: '#E8EEFA',
+      color: '#666666'
+    },
+    tweets: {
+      background: '#ffffff',
+      color: '#333333',
+      links: '#4aed05'
+    }
+  },
+  features: {
+    scrollbar: true,
+    loop: false,
+    live: true,
+    hashtags: false,
+    timestamp: true,
+    avatars: false,
+    behavior: 'all'
+  }
+}).render().setUser('leaguedata').start();
+</script>
+</html>

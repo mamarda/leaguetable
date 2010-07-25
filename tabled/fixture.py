@@ -12,7 +12,7 @@ import gdata.alt.appengine
 import gdata.spreadsheet.service
 
 class Fixture(db.Model):
-    round = db.IntegerProperty()
+    identifier = db.IntegerProperty()
     date = db.StringProperty()
     homeTeam = db.StringProperty()
     awayTeam = db.StringProperty()

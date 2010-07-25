@@ -20,7 +20,7 @@ from time import sleep
 from google.appengine.api import urlfetch
 
 class Fixture(db.Model):
-    round = db.IntegerProperty()
+    identifier = db.IntegerProperty()
     date = db.StringProperty()
     homeTeam = db.StringProperty()
     awayTeam = db.StringProperty()
@@ -31,12 +31,17 @@ class Import(webapp.RequestHandler):
     
   def storeFixtures(self, sheet, feed ):
     
+    count =0
+    
     for i, entry in enumerate( feed.entry ):  
         
-        f = Fixture()        
+        count = count +1
+        
+        f = Fixture()   
+        f.identifier = count     
         f.date = entry.custom['date'].text
-        f.homeTeam = entry.custom['home'].text
-        f.awayTeam = entry.custom['away'].text
+        f.homeTeam = entry.custom['home'].text.strip()
+        f.awayTeam = entry.custom['away'].text.strip()
         
         score = entry.custom['score'].text
         
@@ -50,8 +55,10 @@ class Import(webapp.RequestHandler):
         
 
         f.put()
+        
+        #twitter.log( "%s imported fixtures" % users.get_current_user().nickname() )
 
-        self.response.out.write( '    <fixture date=\"%s\" home=\"%s\" away=\"%s\" homescore=\"%s\" awayscore=\"%s\"/>\n' % (f.date, f.homeTeam, f.awayTeam, f.homeScore, f.awayScore ) )
+        self.response.out.write( '    <fixture identifier= \"%s\", date=\"%s\" home=\"%s\" away=\"%s\" homescore=\"%s\" awayscore=\"%s\"/>\n' % ( f.identifier, f.date, f.homeTeam, f.awayTeam, f.homeScore, f.awayScore ) )
         
        
   def get(self):

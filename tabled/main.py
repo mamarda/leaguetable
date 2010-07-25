@@ -1,44 +1,38 @@
 import cgi
-
+import logging
+import wsgiref.handlers
 from google.appengine.api import users
 from google.appengine.ext import webapp
-from google.appengine.ext.webapp.util import run_wsgi_app
 from google.appengine.ext import db
+from google.appengine.api import urlfetch
+import urllib # Used to unescape URL parameters.
+import gdata.service
+import gdata.alt.appengine
+import gdata.auth
+import atom
+import atom.http_interface
+import atom.token_store
+import atom.url
+import settings
+import twitter
+import profiler
+import importer
+import os
+from google.appengine.ext.webapp import template
 
+class Stuff(webapp.RequestHandler):
 
+  def get(self):
 
-class Greeting(db.Model):
-    author = db.UserProperty()
-    content = db.StringProperty(multiline=True)
-    date = db.DateTimeProperty(auto_now_add=True)
+    template_values ={}
 
-class MainPage(webapp.RequestHandler):
-    def get(self):
-        self.response.out.write('<html><body>')
-
-	
-
-        
-
-
-class Guestbook(webapp.RequestHandler):
-    def post(self):
-        greeting = Greeting()
-
-        if users.get_current_user():
-            greeting.author = users.get_current_user()
-
-        greeting.content = self.request.get('content')
-        greeting.put()
-        self.redirect('/')
-
-application = webapp.WSGIApplication(
-                                     [('/', MainPage)],
-                                     debug=True)
+    path = os.path.join(os.path.dirname(__file__), 'parent.html')
+    self.response.out.write(template.render(path, template_values))
 
 def main():
-    run_wsgi_app(application)
+  def main():
+    application = webapp.WSGIApplication([('/.*', Stuff),], debug=True)
+    wsgiref.handlers.CGIHandler().run(application)
 
-if __name__ == "__main__":
-    main()
-
+if __name__ == '__main__':
+  main()

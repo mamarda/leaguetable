@@ -1,13 +1,9 @@
-application: tabled
+application: leaguedata
 version: 1
 runtime: python
 api_version: 1
 
 handlers:
-
-- url: /sample.xls
-  static_files: files/samples/sample.xls
-  upload: files/samples/sample.xls
 
 - url: /style.css
   static_files: files/style/builder.css
@@ -19,10 +15,6 @@ handlers:
 - url: /standings
   script: standings.py
 
-- url: /league.jpg
-  static_files: files/images/league.jpg
-  upload: files/images/league.jpg
-
 - url: /files
   static_dir: files
 
@@ -33,8 +25,14 @@ handlers:
   static_files: files/images/favicon.ico
   upload: files/images/favicon.ico
   
+- url: /edit
+  script: start.py
+  
 - url: /import
   script: importer.py
+  
+- url: /tables
+  script: first.py
 
 - url: .*
   script: start.py
