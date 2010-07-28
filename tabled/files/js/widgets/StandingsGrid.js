@@ -52,7 +52,7 @@ dojo.declare( "leaguedata.widgets.StandingsGrid", [dijit._Widget], {
 		   			{ field: "goalsfor", width: "30px", styles: 'text-align: center;', name: "GF" },
 		   			{ field: "goalsagainst", width: "30px", styles: 'text-align: center;', name: "GA" },
 		   			{ field: "difference", width: "30px", styles: 'text-align: center;', name: "GD" },
-		   			{ field: "points", width: "50px", styles: 'text-align: center;', name: "Pts" } ];
+		   			{ field: "points", width: "65px", styles: 'text-align: center;', name: "Pts" } ];
  
      this.grid = new dojox.grid.DataGrid( { query: { standing: '*' },
 				       store: jsonStore,

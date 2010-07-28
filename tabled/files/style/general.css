@@ -2,11 +2,11 @@
 
 .resultsContainer {
 	background:#E8EEFA;	
-	padding:5px;
-	width:400px;
+	#padding:5px;
+	width:420px;
 	#float: left;
 	position: absolute;
-	top:60px;
+	top:65px;
 	left:30px;
 	-moz-border-radius:5px 5px 5px 5px;
 	-webkit-border-radius:5px 5px 5px 5px;
@@ -14,7 +14,7 @@
 }
 
 .resultsContainer .gridContainer {
-	background:#fff;
+	background:#EAF4F6;
 	height:366px;
 	#border-top:1px solid #000;
 	#border-left:1px solid #000;	
@@ -40,29 +40,97 @@ h1 {
 }
 
 .resultsTitle{
-	color: #CC0000;
+	color: #405466;
 	font-weight: bold;
 	position: absolute;
-    top: 40px;
+    top: 47px;
     left:30px;
+    -moz-border-radius:7px 7px 7px 7px;
+	-webkit-border-radius:7px 7px 7px 7px;
+	color:#405466;
+	font-weight:bold;
+	height:20px;
+	margin-bottom:5px;
+	width:40px;
 }
 
-.standingsTitle{
-	color: #CC0000;
-	font-weight: bold;
-	position: absolute;
-    top: 40px;
-    left:460px;
+.resultsBackground {
+	-moz-border-radius:7px 7px 7px 7px;
+	-webkit-border-radius:7px 7px 7px 7px;
+	background-color:#EAF4F6;
+	color:white;
+	font-weight:bold;
+	height:395px;
+	left:18px;
+	margin-bottom:5px;
+	padding:5px;
+	position:absolute;
+	top:40px;
+	width:435px;
+	z-index:-1;
+	border: 1px dashed #80BCBC;
+}
+
+.standingsBackground {
+	-moz-border-radius:7px 7px 7px 7px;
+	-webkit-border-radius:7px 7px 7px 7px;
+	background-color:#EAF4F6;
+	color:white;
+	font-weight:bold;
+	height:190px;
+	left:480px;
+	margin-bottom:5px;
+	padding:5px;
+	position:absolute;
+	top:40px;
+	width:400px;
+	z-index:-1;
+	border: 1px dashed #80BCBC;
+}
+
+.twitterBackground{
+	-moz-border-radius:7px 7px 7px 7px;
+	-webkit-border-radius:7px 7px 7px 7px;
+	background-color:#EAF4F6;
+	color:white;
+	font-weight:bold;
+	height:179px;
+	left:480px;
+	margin-bottom:5px;
+	padding:5px;
+	position:absolute;
+	top:256px;
+	width:400px;
+	z-index:-1;
+	border: 1px dashed #80BCBC;
+}
+
+.standingsTitle {
+	-moz-border-radius:7px 7px 7px 7px;
+	-webkit-border-radius:7px 7px 7px 7px;
+	color:#405466;
+	font-weight:bold;
+	height:20px;
+	left:492px;
+	margin-bottom:5px;
+	position:absolute;
+	top:47px;
+	width:40px;
+	z-index:-1;
+}
+
+.standingsContainer .dojoxGridScrollbox {
+    overflow: hidden;
 }
 
 .standingsContainer {
 	background:#E8EEFA;	
-	padding:5px;
-	width:380px;
+	#padding:5px;
+	width:385px;
 	#float: left;
 	position: absolute;
-    top: 60px;
-    left:460px;
+    top: 65px;
+    left:492px;
     #border: 1px solid silver;
     #border-left:1px solid #000;	
     -moz-border-radius:5px 5px 5px 5px;
@@ -80,6 +148,12 @@ h1 {
     font-family:"lucida grande",lucida,tahoma,helvetica,arial,sans-serif !important;
 	font-size:12px !important;
     position:absolute;
-    left:460px;
-    top:220px;
+    left:490px;
+    top:230px;
 }
+
+
+
+#.twtr-tweet-text{
+#	font-size:8pt;	
+#}
