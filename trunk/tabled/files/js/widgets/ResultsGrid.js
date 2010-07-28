@@ -43,7 +43,7 @@ dojo.declare( "leaguedata.widgets.ResultsGrid", [dijit._Widget], {
 
      var jsonStore = new dojo.data.ItemFileWriteStore( { url: "/results" } );    
 
-     var layout= [ 	{ field: "fixture", width: "30px", name: "Id", styles: 'text-align: center;' },
+     var layout= [ 	{ field: "fixture", width: "60px", name: "Id", styles: 'text-align: center;' },
      				{ field: "date", width: "70px", name: "Date" },
 		   			{ field: "hometeam", width: "auto", styles: 'text-align: left;', name: "Home Team" },
 		   			{ field: "homescore", width: "50px", type: dojox.grid.cells.Select, options:[ '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' ], styles: 'text-align: center;', name: "R" },

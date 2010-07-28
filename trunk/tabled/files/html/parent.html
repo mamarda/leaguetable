@@ -26,18 +26,17 @@
     })();
   </script>
  </head>
- <body class="claro" style="overflow:hidden;">
-   	<div class ="bar" id="nav">
-     	<div class="gbar" style="color:#DE971C;"><b>Kanata Soccer: U9 Boys South</b></div>
-    	<div class="user"></div>
-  	</div>
-  	<div id = "resultsbackground" class="resultsBackground"></div>
-	<div id = "resultstitle" class="resultsTitle">Results</div>
-	<div id = "standingsbackground" class="standingsBackground"></div>
-	<div id = "standingstitle" class="standingsTitle">Standings</div>
-	<div id = "results" class="resultsContainer"></div> 
-	<div id = "standings" class="standingsContainer"></div>
-	<div id = "twitterbackground" class="twitterBackground"></div>
+ <body class="claro">
+   <div class ="bar" id="nav">
+     <div class="gbar"><b>Kanata Soccer: U9 Boys South</b></div>
+     <div class="user"></div>
+   </div>
+   <div id = "resultstitle" class="resultsTitle">Results</div>
+   <div id = "standingstitle" class="standingsTitle">Standings</div>
+   <div id = "results" class="resultsContainer"></div> 
+   <div id = "standings" class="standingsContainer"></div> 
+
+
  </body>
    <script>
      djConfig={ baseUrl: '/', modulePaths: {'leaguedata.widgets': 'files/js/widgets'} }
@@ -63,19 +62,15 @@ new TWTR.Widget({
   type: 'profile',
   rpp: 4,
   interval: 6000,
-  width: 392,
+  width: 390,
   height: 100,
-  border: '1px dashed #80BCBC',
   theme: {
     shell: {
-      background: '#EAF4F6',
-      
-      
-      color: '#405466'
+      background: '#E8EEFA',
+      color: '#666666'
     },
     tweets: {
       background: '#ffffff',
-      fontSize:'8pt',
       color: '#333333',
       links: '#4aed05'
     }
