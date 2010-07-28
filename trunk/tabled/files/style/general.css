@@ -16,6 +16,9 @@
 .resultsContainer .gridContainer {
 	background:#EAF4F6;
 	height:366px;
+	border: 1px solid silver;
+	border-top:none;
+	border-right:none;
 	#border-top:1px solid #000;
 	#border-left:1px solid #000;	
 }
@@ -40,14 +43,13 @@ h1 {
 }
 
 .resultsTitle{
-	color: #405466;
+	color: #80BCBC;
 	font-weight: bold;
 	position: absolute;
-    top: 47px;
+    top: 46px;
     left:30px;
     -moz-border-radius:7px 7px 7px 7px;
 	-webkit-border-radius:7px 7px 7px 7px;
-	color:#405466;
 	font-weight:bold;
 	height:20px;
 	margin-bottom:5px;
@@ -108,13 +110,13 @@ h1 {
 .standingsTitle {
 	-moz-border-radius:7px 7px 7px 7px;
 	-webkit-border-radius:7px 7px 7px 7px;
-	color:#405466;
+	color:#80BCBC;
 	font-weight:bold;
 	height:20px;
 	left:492px;
 	margin-bottom:5px;
 	position:absolute;
-	top:47px;
+	top:46px;
 	width:40px;
 	z-index:-1;
 }
@@ -140,6 +142,8 @@ h1 {
 .standingsContainer .gridContainer {
 	background:#fff;
 	height:160px;
+	border: 1px solid silver;
+	border-top:none;
 	#border-top:1px solid #000;
 	#border-left:1px solid #000;	
 }
