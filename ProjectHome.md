@@ -1,0 +1,1 @@
+Takes input of games from a google spreadsheet and allows coaches to input results for the games. Calculates the league standings.
